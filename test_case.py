@@ -1,23 +1,43 @@
-import pyautogui as pg
-import pyperclip
+import pytest
 
-import base
-from screen_name_and_text import *
+from list_to_case import *
+
+ts = ThreeStripes()
+bs = Base()
 
 
-def test_authorization():
-    base.run_exe_42(base.path_42)
-    base.search_locate_coordinates(screen['Логин пароль'])
-    login = base.search_locate_coordinates(screen['Имя пользователя'])
-    pg.moveTo(login)
-    pg.click()
-    pyperclip.copy(text['Имя пользователя'])
-    pg.hotkey('ctrl', 'v')
-    password = base.search_locate_coordinates(screen['Пароль'])
-    pg.moveTo(password)
-    pg.click()
-    pyperclip.copy(text['Пароль'])
-    pg.hotkey('ctrl', 'v')
-    ok = base.search_locate_coordinates(screen['Ок,окна логина'])
-    pg.moveTo(ok)
-    pg.click()
+class Test1:
+    """"Тест входа и выхода из SrvMod"""
+
+    def test_start_authorization_srvmod(self):
+        assert bs.start_authorization_srvmod()
+
+    def test_exit_srvmod_exit(self):
+        assert bs.exit_srvmod_cross()
+
+
+class Test2:
+    """Тест блокировки SrvMod """
+
+    def test_start_authorization_srvmod(self):
+        assert bs.start_authorization_srvmod()
+
+    @pytest.mark.xfail()
+    def test_block_and_f12(self):
+        assert ts.block_and_f12()
+
+    def test_exit_srvmod_cross(self):
+        assert ts.exit_srvmod_exit()
+
+
+class Test3:
+    """Тест 'О программе'"""
+
+    def test_start_authorization_srvmod(self):
+        assert bs.start_authorization_srvmod()
+
+    def test_about_the_program(self):
+        assert ts.about_the_program()
+
+    def test_exit_srvmod_cross(self):
+        assert ts.exit_srvmod_exit()
