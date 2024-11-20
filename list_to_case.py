@@ -1,30 +1,27 @@
-import time
-
 import pyautogui as pg
-import pyperclip
 
 import base
+import keyboard,pyperclip
 from screen_name_and_text import *
-
+import codecs
 
 class Base:
     @staticmethod
     def start_authorization_srvmod():
         """Авторизация в SrvMod"""
+        #pyperclip.copy(text)
+        #keyboard.press_and_release('ctrl + v')
         base.run_exe_42(base.path_42)
         login_and_password = base.search_locate_coordinates(base_screen['Логин пароль'])
         assert login_and_password
         login = base.search_locate_coordinates(base_screen['Имя пользователя'])
         assert login
-        pyperclip.copy(text['Имя пользователя'])
         pg.click(login)
-        time.sleep(0.2)
-        pg.hotkey('ctrl', 'v')
+        keyboard.write(text['Имя пользователя'])
         password = base.search_locate_coordinates(base_screen['Пароль'])
         assert password
         pg.click(password, duration=0.1)
-        pyperclip.copy(text['Пароль'])
-        pg.hotkey('Ctrl', 'v')
+        keyboard.write(text['Пароль'])
         ok = base.search_locate_coordinates(base_screen['Ок,окна логина'])
         pg.click(ok)
         return base.search_locate_coordinates(base_screen['Шапка SrvMod'])
@@ -52,9 +49,8 @@ class ThreeStripes:
         assert base.search_locate_coordinates(three_stripes_screen['Требуется подтверждение'])
         password = base.search_locate_coordinates(three_stripes_screen['Пароль'])
         assert password
-        pyperclip.copy(text['Пароль'])
         pg.click(password)
-        pg.hotkey('ctrl', 'v')
+        keyboard.write(text['Пароль'])
         pg.click(base.search_locate_coordinates(three_stripes_screen['Ввод']))
         assert base.search_locate_coordinates(base_screen['Шапка SrvMod'])
         pg.press('F12')

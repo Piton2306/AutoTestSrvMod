@@ -1,9 +1,21 @@
+import ctypes
 import os
-import time
 from time import sleep
+
 import pyautogui as pg
 
 path_42 = 'c:/Users/NASTENKO/Desktop/3CardF/v42/SrvMod_42.lnk'
+
+
+def get_language():
+    """Проверка языка системы, en или ru
+    :param lang: язык который нужен, по умолчанию en"""
+    u = ctypes.windll.LoadLibrary("user32.dll")
+    pf = getattr(u, "GetKeyboardLayout")
+    if hex(pf(0)) == '0x4190419':
+        return 'ru'
+    if hex(pf(0)) == '0x4090409':
+        return 'en'
 
 
 def run_exe_42(exe_path):
