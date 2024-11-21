@@ -1,16 +1,18 @@
+import logging
+
+import keyboard
 import pyautogui as pg
 
 import base
-import keyboard,pyperclip
 from screen_name_and_text import *
-import codecs
+
 
 class Base:
     @staticmethod
     def start_authorization_srvmod():
         """Авторизация в SrvMod"""
-        #pyperclip.copy(text)
-        #keyboard.press_and_release('ctrl + v')
+        # pyperclip.copy(text)
+        # keyboard.press_and_release('ctrl + v')
         base.run_exe_42(base.path_42)
         login_and_password = base.search_locate_coordinates(base_screen['Логин пароль'])
         assert login_and_password
@@ -30,10 +32,8 @@ class Base:
     def exit_srvmod_cross():
         """Выход из SrvMod крестом"""
         out = base.search_locate_coordinates(base_screen['Крестик выхода'])
-        print('выход')
         pg.click(out)
-        assert base.search_locate_coordinates(base_screen['Шапка SrvMod'], time_search=2) == False
-        return True
+        return not base.search_locate_coordinates(base_screen['Шапка SrvMod'], time_search=0)
 
 
 class ThreeStripes:
@@ -41,7 +41,7 @@ class ThreeStripes:
     def block_and_f12():
         """Три полоски -> Блокировка и F12"""
         three_stripes = base.search_locate_coordinates(base_screen['Три полоски'])
-        assert three_stripes
+        assert three_stripes, logging.warning(f'Три полоски не найдено')
         pg.click(three_stripes)
         block = base.search_locate_coordinates(three_stripes_screen['Блокировка и F12'])
         assert block
@@ -54,9 +54,7 @@ class ThreeStripes:
         pg.click(base.search_locate_coordinates(three_stripes_screen['Ввод']))
         assert base.search_locate_coordinates(base_screen['Шапка SrvMod'])
         pg.press('F12')
-        assert (base.search_locate_coordinates(three_stripes_screen['Требуется подтверждение'])), \
-            'Не выходит из SrvMod при нажатии F12'
-        return True
+        return base.search_locate_coordinates(three_stripes_screen['Требуется подтверждение'])
 
     @staticmethod
     def exit_srvmod_exit():

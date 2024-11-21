@@ -1,4 +1,5 @@
 import ctypes
+import logging
 import os
 from time import sleep
 
@@ -23,6 +24,16 @@ def run_exe_42(exe_path):
     return 'Ок'
 
 
+class LogsTestInfo:
+    @staticmethod
+    def logs_error_false(name_test):
+        logging.error(f"{name_test} ПРОВАЛЕН")
+
+    @staticmethod
+    def logs_info_true(name_test):
+        logging.info(f"{name_test} ПРОЙДЕН")
+
+
 def search_locate_coordinates(name_screen, time_search=5, confidence=0.95):
     """"
     :param name_screen: Строка, путь к скриншоту после Screen/
@@ -40,5 +51,4 @@ def search_locate_coordinates(name_screen, time_search=5, confidence=0.95):
             count += 0.5
             sleep(0.5)
             if count == time_search:
-                # print(f'В течении {count} секунд координаты {name_screen} не найдены')
                 return False

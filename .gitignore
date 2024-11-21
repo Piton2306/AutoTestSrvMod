@@ -1,2 +1,5 @@
 .idea
 /venv
+/logs/pytest.log
+/all_test_test.py
+/yyy.py
