@@ -1,5 +1,3 @@
-import logging
-
 import keyboard
 import pyautogui as pg
 
@@ -24,7 +22,7 @@ class Base:
         assert password
         pg.click(password, duration=0.1)
         keyboard.write(text['Пароль'])
-        ok = base.search_locate_coordinates(base_screen['Ок,окна логина'])
+        ok = base.search_locate_coordinates(base_screen['Ок'])
         pg.click(ok)
         return base.search_locate_coordinates(base_screen['Шапка SrvMod'])
 
@@ -37,12 +35,15 @@ class Base:
 
 
 class ThreeStripes:
+
     @staticmethod
     def block_and_f12():
         """Три полоски -> Блокировка и F12"""
         three_stripes = base.search_locate_coordinates(base_screen['Три полоски'])
-        assert three_stripes, logging.warning(f'Три полоски не найдено')
+        assert three_stripes
         pg.click(three_stripes)
+        general_window = base.search_locate_coordinates(three_stripes_screen['Три полоски общее окно'])
+        assert general_window
         block = base.search_locate_coordinates(three_stripes_screen['Блокировка и F12'])
         assert block
         pg.click(block)
@@ -81,3 +82,45 @@ class ThreeStripes:
         assert out
         pg.click(out)
         return not base.search_locate_coordinates(three_stripes_screen['О программе окно'], time_search=2)
+
+
+class Service:
+
+    @staticmethod
+    def uploading_authorizations():
+        service = base.search_locate_coordinates(base_screen['Сервис'])
+        assert service
+        pg.click(service)
+        general_window = base.search_locate_coordinates(service_screen['Сервис общее окно'])
+        assert general_window
+        upload_auth = base.search_locate_coordinates(service_screen['Выгрузка авторизаций'])
+        pg.click(upload_auth)
+        login_and_password = base.search_locate_coordinates(service_screen['Логин пароль'])
+        assert login_and_password
+        login = base.search_locate_coordinates(base_screen['Имя пользователя'])
+        assert login
+        pg.click(login)
+        keyboard.write(text['Имя пользователя'])
+        password = base.search_locate_coordinates(base_screen['Пароль'])
+        assert password
+        pg.click(password, duration=0.1)
+        keyboard.write(text['Пароль'])
+        ok = base.search_locate_coordinates(base_screen['Ок'])
+        pg.click(ok)
+        task_complete = base.search_locate_coordinates(service_screen['Task complete'])
+        assert task_complete
+        ok = base.search_locate_coordinates(service_screen['Ok complete'])
+        assert ok
+        pg.click(ok)
+        start = base.search_locate_coordinates(service_screen['Start'])
+        assert start
+        pg.click(start)
+        task_complete = base.search_locate_coordinates(service_screen['Task complete'])
+        assert task_complete
+        ok = base.search_locate_coordinates(service_screen['Ok complete'])
+        assert ok
+        pg.click(ok)
+        close = base.search_locate_coordinates(service_screen['Close'])
+        assert close
+        pg.click(close)
+        assert not base.search_locate_coordinates(service_screen['Unload authorization'], time_search=2)

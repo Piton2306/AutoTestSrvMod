@@ -27,10 +27,12 @@ def run_exe_42(exe_path):
 class LogsTestInfo:
     @staticmethod
     def logs_error_false(name_test):
+        """Логирование проваленных тестов"""
         logging.error(f"{name_test} ПРОВАЛЕН")
 
     @staticmethod
     def logs_info_true(name_test):
+        """Логирование успешных тестов"""
         logging.info(f"{name_test} ПРОЙДЕН")
 
 
