@@ -35,22 +35,45 @@ class LogsTestInfo:
         """Логирование успешных тестов"""
         logging.info(f"{name_test} ПРОЙДЕН")
 
+    @staticmethod
+    def log_start(name_test):
+        logging.info(f"{name_test} Старт")
 
-def search_locate_coordinates(name_screen, time_search=5, confidence=0.95):
-    """"
-    :param name_screen: Строка, путь к скриншоту после Screen/
-    :param time_search: Время поиска скриншота
-    :param confidence: Точность поиска, по умолчанию 0.8
-    :return: Координаты при успешном поиске, FAlSE если не найден
-    """
-    count = 0
-    while True:
-        try:
-            coordinates = pg.locateOnScreen(name_screen, confidence=confidence)
-            # print(f'В течении {count} секунд координаты {name_screen} найдены')
-            return coordinates
-        except pg.ImageNotFoundException:
-            count += 0.5
-            sleep(0.5)
-            if count == time_search:
-                return False
+    @staticmethod
+    def log_finish(name_test):
+        logging.info(f"{name_test} Конец")
+
+
+class SearchScreen:
+    @staticmethod
+    def search_locate_coordinates(name_screen, time_search=5, confidence=0.95):
+        """"
+        :param name_screen: Строка, путь к скриншоту после Screen/
+        :param time_search: Время поиска скриншота
+        :param confidence: Точность поиска, по умолчанию 0.95
+        :return: Координаты при успешном поиске, FAlSE если не найден
+        """
+        count = 0
+        while True:
+            try:
+                coordinates = pg.locateOnScreen(name_screen, confidence=confidence)
+                # print(f'В течении {count} секунд координаты {name_screen} найдены')
+                return coordinates
+            except pg.ImageNotFoundException:
+                count += 0.5
+                sleep(0.5)
+                if count == time_search:
+                    return False
+
+    @staticmethod
+    def search_assert_and_click_and_log(name_screen, time_search=5, confidence=0.95):
+        """"
+        :param name_screen: Строка, путь к скриншоту после Screen/
+        :param time_search: Время поиска скриншота
+        :param confidence: Точность поиска, по умолчанию 0.95
+        :return: Координаты при успешном поиске, FAlSE если не найден
+        """
+        data = SearchScreen().search_locate_coordinates(name_screen, time_search, confidence)
+        assert data, logging.error(f"Скрин по пути '{name_screen}' НЕНАЙДЕН")
+        logging.info(f"Скрин '{name_screen}' по пути  НАЙДЕН")
+        pg.click(data, duration=0.1)

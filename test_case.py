@@ -8,17 +8,20 @@ ts = ThreeStripes()
 bs = Base()
 sr = Service()
 
+
 class Test1:
     """"Тест входа и выхода из SrvMod"""
     name_test = 'Test1'
 
     def test_start_authorization_srvmod(self):
+        lg.log_start(self.name_test)
         assert bs.start_authorization_srvmod(), lg.logs_error_false(f"{self.name_test} start_authorization_srvmod")
         lg.logs_info_true(f"{self.name_test} start_authorization_srvmod")
 
     def test_exit_srvmod_exit(self):
         assert ts.exit_srvmod_exit(), lg.logs_error_false(f"{self.name_test} exit_srvmod_exit")
         lg.logs_info_true(f"{self.name_test} exit_srvmod_exit")
+        lg.log_finish(self.name_test)
 
 
 class Test2:
@@ -26,6 +29,7 @@ class Test2:
     name_test = 'Test2'
 
     def test_start_authorization_srvmod(self):
+        lg.log_start(self.name_test)
         assert bs.start_authorization_srvmod(), lg.logs_error_false(f"{self.name_test} start_authorization_srvmod")
         lg.logs_info_true(f"{self.name_test} start_authorization_srvmod")
 
@@ -37,6 +41,7 @@ class Test2:
     def test_exit_srvmod_exit(self):
         assert ts.exit_srvmod_exit(), lg.logs_error_false(f"{self.name_test} exit_srvmod_exit")
         lg.logs_info_true(f"{self.name_test} exit_srvmod_exit")
+        lg.log_finish(self.name_test)
 
 
 class Test3:
@@ -44,6 +49,7 @@ class Test3:
     name_test = 'Test3'
 
     def test_start_authorization_srvmod(self):
+        lg.log_start(self.name_test)
         assert bs.start_authorization_srvmod(), lg.logs_error_false(f"{self.name_test} start_authorization_srvmod")
         lg.logs_info_true(f"{self.name_test} start_authorization_srvmod")
 
@@ -54,18 +60,22 @@ class Test3:
     def test_exit_srvmod_exit(self):
         assert ts.exit_srvmod_exit(), lg.logs_error_false(f"{self.name_test} exit_srvmod_exit")
         lg.logs_info_true(f"{self.name_test} exit_srvmod_exit")
+        lg.log_finish(self.name_test)
+
 
 class Test4:
     name_test = 'Test4'
 
     def test_start_authorization_srvmod(self):
+        lg.log_start(self.name_test)
         assert bs.start_authorization_srvmod(), lg.logs_error_false(f"{self.name_test} start_authorization_srvmod")
         lg.logs_info_true(f"{self.name_test} start_authorization_srvmod")
 
     def test_uploading_authorizations(self):
-        sr.uploading_authorizations(),lg.logs_error_false(f"{self.name_test} uploading_authorizations")
+        assert sr.uploading_authorizations(), lg.logs_error_false(f"{self.name_test} uploading_authorizations")
         lg.logs_info_true(f"{self.name_test} uploading_authorizations")
 
     def test_exit_srvmod_exit(self):
         assert ts.exit_srvmod_exit(), lg.logs_error_false(f"{self.name_test} exit_srvmod_exit")
         lg.logs_info_true(f"{self.name_test} exit_srvmod_exit")
+        lg.log_finish(self.name_test)
