@@ -1,8 +1,7 @@
 text = {
     'Имя пользователя': 'ONL_220',
     'Пароль': 'manager',
-    'Ок,окна логина': 'Screen/base/4.png',
-    '': 'Screen/base/2.png',
+
 }
 
 

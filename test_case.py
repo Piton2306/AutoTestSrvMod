@@ -33,7 +33,7 @@ class Test2:
         assert bs.start_authorization_srvmod(), lg.logs_error_false(f"{self.name_test} start_authorization_srvmod")
         lg.logs_info_true(f"{self.name_test} start_authorization_srvmod")
 
-    @pytest.mark.xfail()
+
     def test_block_and_f12(self):
         assert ts.block_and_f12(), lg.logs_error_false(f"{self.name_test} block_and_f12")
         lg.logs_info_true(f"{self.name_test} block_and_f12")
