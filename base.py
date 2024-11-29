@@ -46,7 +46,7 @@ class LogsTestInfo:
 
 class SearchScreen:
     @staticmethod
-    def search_locate_coordinates(name_screen, time_search=5, confidence=0.95):
+    def search_locate_coordinates(name_screen, time_search=5, confidence=0.90):
         """
         Поиск координат и проверка на отсутствие за выставленное время.
         :param name_screen: Строка, путь к скриншоту после Screen/

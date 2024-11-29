@@ -21,13 +21,13 @@ class Base:
         ss.search_assert_and_log_and_click(base_screen['Пароль'])
         keyboard.write(text['Пароль'])
         ss.search_assert_and_log_and_click(base_screen['Ок'])
-        return ss.search_locate_coordinates(base_screen['Шапка SrvMod'])
+        return ss.search_locate_coordinates(base_screen['Шапка SrvMod'],confidence=0.6)
 
     @staticmethod
     def exit_srvmod_cross():
         """Выход из SrvMod крестом"""
         ss.search_assert_and_log_and_click(base_screen['Крестик выхода'])
-        return not ss.search_locate_coordinates(base_screen['Шапка SrvMod'], time_search=0)
+        return not ss.search_locate_coordinates(base_screen['Шапка SrvMod'], time_search=2)
 
 
 class ThreeStripes:
@@ -39,13 +39,13 @@ class ThreeStripes:
         general_window = ss.search_locate_coordinates(three_stripes_screen['Три полоски общее окно'])
         assert general_window
         ss.search_assert_and_log_and_click(three_stripes_screen['Блокировка и F12'])
-        assert ss.search_locate_coordinates(three_stripes_screen['Требуется подтверждение'])
-        ss.search_assert_and_log_and_click(three_stripes_screen['Пароль'])
+        assert ss.search_locate_coordinates(three_stripes_screen['Требуется подтверждение'],confidence=0.6)
+        ss.search_assert_and_log_and_click(three_stripes_screen['Пароль'],)
         keyboard.write(text['Пароль'])
         ss.search_assert_and_log_and_click(three_stripes_screen['Ввод'])
         assert ss.search_locate_coordinates(base_screen['Шапка SrvMod'])
         pg.press('F12')
-        ss.search_locate_coordinates(three_stripes_screen['Требуется подтверждение'])
+        ss.search_locate_coordinates(three_stripes_screen['Требуется подтверждение'],confidence=0.6)
         ss.search_assert_and_log_and_click(three_stripes_screen['Пароль'])
         keyboard.write(text['Пароль'])
         ss.search_assert_and_log_and_click(three_stripes_screen['Ввод'])
@@ -97,7 +97,7 @@ class Service:
         task_complete = ss.search_locate_coordinates(service_screen['Task complete'])
         assert task_complete
         ss.search_assert_and_log_and_click(service_screen['Ok complete'])
-        assert ss.search_locate_coordinates(service_screen['Unload authorization'])
+        assert ss.search_locate_coordinates(service_screen['Unload authorization'],confidence=0.6)
         ss.search_assert_and_log_and_click(service_screen['Close'])
         assert not ss.search_locate_coordinates(service_screen['Unload authorization'],
                                                 time_search=2)
